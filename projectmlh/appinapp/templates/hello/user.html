@@ -4,35 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
+    <link rel="stylesheet" href="../../static/hello/user.css">
 </head>
+
+
 <body>
-    <div>
-      Q. Your name :
-      <input type="text">
+  <form class="user-form">
+    <div class="name">
+       Your name 
     </div>
-    <div>
-      Q. Your Adhaar number : 
-       <input type="text">
-    </div>
-    <div>
-      Q. Your phone number
-      <input type="text" pattern="[0-9]{10}">
-    </div>
-    <div>
-      Q. Address, where you need our helper :
-       <span>
+       <div>
         <input type="text">
-        Or 
-        <button>Share live-location</button>
-       </span> 
+       </div>      
+    <div>
+       Your Adhaar number 
     </div>
+       <div class="input">
+        <input type="text" oninput="" pattern="\d{12}" required title="please enter your Adhaar number">
+       </div>   
+    <div>
+       Your phone number
+    </div>
+       <div >
+        <input type="text" oninput="" pattern="\d{10}" required title="please enter your phone number">
+       </div>      
     
     <div>
-        <button>Submit</button>
+       Address
     </div>
-      
-
-       <h6>only available in india.</h6>
+    <div class="suggestion">
+      where you need our helper 
+    </div>
+    <div>
+      <button class="live-location">Share live-location</button>
+    </div>
+    <div>
+      Or
+    </div>  
+    <div>
+      <input type="text" placeholder="ashram chowmani">
+     </div> 
+    
+    <div>
+        <button class="submit">Submit</button>
+    </div>
+  </form>
+    
+       <h6>only available in tripura.</h6>
    
 </body>
 </html>

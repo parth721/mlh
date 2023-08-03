@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <tittle>mlh</tittle>
+    <link rel="stylesheet" href="../../static/css/layout.css">
+</head>
+<body>
+   <h1> Hello,</h1>
+    <form class="user-form">
+    <!--<div class="name">
+           Your name 
+        </div>
+           <div>
+            <input type="text">
+           </div>-->     
+        <div>
+           Your Adhaar number 
+        </div>
+           <div class="input">
+            <input type="text" oninput="" pattern="\d{12}" required title="please enter your Adhaar number">
+           </div>   
+        <div>
+           Your phone number
+           <!--otp verification for user-->
+        </div>
+           <div >
+            <input type="text" oninput="" pattern="\d{10}" required title="please enter your phone number">
+           </div>      
+        
+        <div>
+           Address
+        </div>
+        <div class="suggestion">
+          where you need our helper 
+        </div>
+        <div>
+          <button class="live-location">Share live-location</button>
+        </div>
+        <div>
+          Or
+        </div>  
+        <div>
+          <input type="text" placeholder="ashram chowmani">
+         </div> 
+
+         {% submit block %}
+         {% end submit block %}
+
+      </form>
+        
+           <h6>only available in tripura.</h6>
+</body>
+</html>

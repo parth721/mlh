@@ -1,4 +1,6 @@
 from django.shortcuts import render
+# to send http resonse from views file we added django.http
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request) :
@@ -7,7 +9,5 @@ def home(request) :
 def user(request) :
     return render(request, "html/user.html")
 
-def partner(request, name) :
-    return render(request, "html/partner.html", {
-        "name":name.capitalize()
-    })
+def partner(request) :
+    return render(request, "html/partner.html")

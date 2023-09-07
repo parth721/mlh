@@ -1,5 +1,3 @@
-// add eventListener
-document.getElementsByClassName("live-location").addEventListener("click", geoLocation);
 
 //function declaration
 function getLocation(){

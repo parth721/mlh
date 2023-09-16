@@ -11,7 +11,7 @@
 </head>
 <body>
    <h1> Hello,</h1>
-    <form class="user-form">
+    <!--<form class="user-form">
     <div class="name">
            Your name 
         </div>
@@ -26,7 +26,7 @@
            </div>   
         <div>
            Your phone number
-           <!--otp verification for user-->
+           <!--otp verification for user--
         </div>
            <div >
             <input type="text" oninput="" pattern="\d{10}" required title="please enter your phone number">
@@ -42,6 +42,9 @@
           <button class="live-location" onclick="getLocation()">Share live-location</button>
         </div>
         <div>
+         <h3>Want to Mark on Map. </h3>
+        </div>
+        <div>
           Or
         </div>  
         <div>
@@ -54,8 +57,11 @@
          {% block submit %}
          {% endblock %}
 
-      </form>
-        
-           <h6>only available in tripura.</h6>
+      </form>-->
+
+    <form method="post">
+       {% csrf_token %}
+       {{ form.as_p }}
+    </form>
 </body>
 </html>

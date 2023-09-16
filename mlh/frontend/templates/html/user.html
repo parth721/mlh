@@ -1,6 +1,24 @@
-{% extends "html/layout.html" %}
+<!--{% extends "html/layout.html" %}
 
 
 {% block submit %}
 <button class="user-submit">submit</button>
-{% endblock %}
+{% endblock %}-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+
+    {{ form }}
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

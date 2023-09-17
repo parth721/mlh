@@ -1,18 +1,4 @@
-from django.shortcuts import render, redirect
-from backend.models import User
-from backend.form import UserForm
-
-# Create your views here.
-def create_record(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('success_page')  # Redirect to a success page
-    else:
-        form = UserForm()
-    return render(request, 'html/user.html', {'form': form})
-
+from django.shortcuts import render
 
 class Geocoding :
     def Geocoding (self, request):

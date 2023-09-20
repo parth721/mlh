@@ -32,3 +32,12 @@ def partner_form(request):
     else:
         form_partner= PartnerForm()
     return render(request, 'html/partner.html', {'form_partner':form_partner})
+
+def redirect_user(request):
+    response = redirect('html/userbio.html')
+    return response
+    
+def redirect_partner(request):
+    response = redirect('html/partnerbio.html')
+    return response
+    

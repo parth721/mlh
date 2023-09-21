@@ -34,10 +34,24 @@ def partner_form(request):
     return render(request, 'html/partner.html', {'form_partner':form_partner})
 
 def redirect_user(request):
-    response = redirect('html/userbio.html')
-    return response
+    if request.method == 'POST':
+        bio_user = UserRef(request.POST)
+        if bio_user.is_valid():
+            bio_user.save()
+            return redirect('html/user.html')
+    else:
+        bio_user = UserRef()
+        
+    return  render(request, 'html/userbio.html', {'bio_user':bio_user})
     
 def redirect_partner(request):
-    response = redirect('html/partnerbio.html')
-    return response
+    if request.method == 'POST':
+        bio_partner = PartnerRef(request.POST)
+        if bio_partner.is_valid():
+            bio_partner.save()
+            return redirect('html/partner.html')
+    else:
+        bio_partner = PartnerRef()
+        
+    return  render(request, 'html/partnerbio.html', {'bio_partner':bio_partner})
     

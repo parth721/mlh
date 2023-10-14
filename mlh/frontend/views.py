@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect
 from backend.form import *
-# to send http resonse from views file we added django.http
 from django.http import HttpResponse
+from twilio.rest import Client
+import random
 
 # Create your views here.
 def home(request) :
     return render(request, "html/home.html")
 
-def user(request) :
-    return render(request, "html/user.html")
-
-def partner(request) :
-    return render(request, "html/partner.html")
 
 def user_form(request):
     if request.method == 'POST':
@@ -55,3 +51,37 @@ def redirect_partner(request):
         
     return  render(request, 'html/partnerbio.html', {'bio_partner':bio_partner})
     
+    
+def send_verification_code(phone_number):
+    code = str(random.randint(1000,9999))
+    
+    client = Client()
+    message = client.messages.create(...)
+    
+    return code
+
+def verify_phone_number(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        country_code = request.POST.get('country_code')
+        phone_number = request.POST.get('phone_number')
+
+        #check existing user or not   
+        user = User.objects.filter(phone_number=phone_number).first()
+        if not user :
+            user = User.objects.create(name= name, country_code=country_code, phone_number=phone_number )
+            
+        verification_code = send_verification_code(phone_number)
+        
+        request.session['verification_code'] = verification_code
+        
+        return redirect('enter_verification_code')
+    return render(request, 'html/login.html')
+
+def enter_verification_code(request):
+    if request.method == "POST":
+        entered_code = request.POST.get('code')
+        if entered_code == request.session.get('verification_code'):
+            return render()
+        else:
+            

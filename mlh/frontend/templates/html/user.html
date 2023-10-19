@@ -10,6 +10,8 @@
         {% csrf_token %}
         {{ form_user.as_p }}
        <div>
+         <input type="text" placeholder="lon">
+         <input type="text" placeholder="lat">
          <button onclick=""> live-location </button>
        </div>
          <button type="submit">Submit</button>

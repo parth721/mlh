@@ -8,12 +8,12 @@ class User(models.Model):
     user_phone = models.CharField(max_length=10) #how to prepare the countrycode
  
 class UserBio(models.Model):
-    user_purpose = models.CharField(max_length=20)
-    user_area = models.CharField(max_length=20)
-    user_city = models.CharField(max_length=20)
-    user_state = models.CharField(max_length=20)
-    user_lon= models.DecimalField(max_digits=4, decimal_places=3, default=0.00)
-    user_lat = models.DecimalField(max_digits=4,  decimal_places=3, default=0.00)
+    user_purpose = models.CharField(max_length=10)
+    user_area = models.CharField(max_length=10)
+    user_city = models.CharField(max_length=10)
+    user_state = models.CharField(max_length=10)
+    user_lon= models.DecimalField(max_digits=4, decimal_places=4, default=0.0000)
+    user_lat = models.DecimalField(max_digits=4,  decimal_places=4, default=0.0000)
  
     
 # creating database for partners   

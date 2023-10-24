@@ -11,7 +11,7 @@ def home(request) :
 
 def user_form(request):
     if request.method == 'POST':
-        form_user = UserForm(request.POST)
+        form_user = UserFrom(request.POST)
         if form_user.is_valid():
             form_user.save()
             return redirect('html/user.html')

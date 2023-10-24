@@ -8,13 +8,15 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        {{ form_UserForm.as_p }}
-       <div>
-         <input type="text" placeholder="lon">
-         <input type="text" placeholder="lat">
-         <button onclick=""> live-location </button>
-       </div>
-         <button type="submit">Submit</button>
+        {{ form_user.as_p }}
+        <div>
+          <!-- <select name="Country">
+            <option value="IN">India </option>
+            <option value="US">USA </option>
+            <option value="UK">UK </option>
+           </select>-->
+        </div>
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>

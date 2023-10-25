@@ -9,14 +9,11 @@
     <form method="post">
         {% csrf_token %}
         {{ form_user.as_p }}
-        <div>
-          <!-- <select name="Country">
-            <option value="IN">India </option>
-            <option value="US">USA </option>
-            <option value="UK">UK </option>
-           </select>-->
-        </div>
-        <button type="submit">Submit</button>
+        <button onclick="">Send OTP</button>
+        <button onclick="">Resend OTP</button>
+        <label for="code">Enter OTP :</label>
+        <input type="text" id="code" name="code" placeholder="OTP" value="{{ otp }}">
+        <button type="submit">Submit</button>   
     </form>
 </body>
 </html>

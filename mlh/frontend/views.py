@@ -9,12 +9,15 @@ import random
 def home(request) :
     return render(request, "html/home.html")
 
+def success(request):
+    return render(request, "html/success.html")
+
 def user_form(request):
     if request.method == 'POST':
-        form_user = UserFrom(request.POST)
+        form_user = UserForm(request.POST)
         if form_user.is_valid():
             form_user.save()
-            return redirect('html/user.html')
+            return redirect("login_page")
     else:
         form_user = UserForm()
     return render(request, 'html/user.html', {'form_user':form_user})
@@ -50,52 +53,10 @@ def redirect_partner(request):
         bio_partner = PartnerRef()
         
     return  render(request, 'html/partnerbio.html', {'bio_partner':bio_partner})
-  
-##### verification code  
-'''  
-def send_verification_code(phone_number):
-    code = str(random.randint(1000,9999))
-    client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
-    #client = Client()
-    message = client.messages.create(to=["+91"+phone_number], from_="+15178360990", body=f'Your OTP is : {code}') 
-    return code
 
-def resendOTP(self):
-        self.n = random.randint(1000,9999)
-        self.client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
-        self.client.messages.create(to=["+91"+self.phone_number], from_="+15178360990", body=f'Your OTP is : {self.n}')
-        
 
-def verify_phone_number(request):
-    if request.method == "POST":
-        name = request.POST.get('name')
-        country_code = request.POST.get('country_code')
-        phone_number = request.POST.get('phone_number')
-
-        #check existing user or not   
-        user = User.objects.filter(phone_number = phone_number).first()
-        if not user :
-            user = User.objects.create(name = name, country_code = country_code, phone_number = phone_number )
-            
-        verification_code = send_verification_code(phone_number)
-        
-        request.session['verification_code'] = verification_code
-        
-        return redirect('enter_verification_code')
-    return render(request, 'html/login.html')
-
-def enter_verification_code(request):
-    if request.method == "POST":
-        entered_code = request.POST.get('code')
-        saved_code = request.session.get('verification_code')
-        if entered_code == saved_code :
-            return render()                      #need some upgrade
-        else:
-            return redirect(request, 'html/login.html')       #need some upgrades     
-'''
-# redoing the verification with another system.
-def login_view(request):
-    return render(request, "login.html")
+def login(request):
+    return render(request, "html/login.html")
 
 def register_view(request):
     if request.method == 'POST':
@@ -109,3 +70,37 @@ def register_view(request):
         
         return redirect('/')
     return render(request, 'register.html.')
+
+# the verification with another system.
+def sendOTP(phone_number, request):
+    otp = str(random.randrange(1000, 9999))
+    client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
+    client.messages.create(to=["+91" + phone_number], from_="+15178360990", body=f'Your OTP is : {otp}')
+    request.session['verification_code'] = otp
+
+def resendOTP(phone_number, request):
+    newotp = random.randrange(1000, 9999)
+    client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
+    client.messages.create(to=["+91" + phone_number], from_="+15178360990", body=f'Your new OTP is : {newotp}')
+    request.session['verification_code'] = newotp
+
+def verify_phone_number(request):
+    if request.method == 'POST':
+        entered_otp = request.POST.get('code')
+        saved_otp = request.session.get('verification_code')
+
+        # Check if the OTP is valid.
+        if entered_otp != saved_otp:
+            return render(request, 'html/user.html', {'error_message': 'Invalid OTP.'})
+
+        # The OTP is valid
+        form_user = UserForm(request.POST)
+
+        if form_user.is_valid():
+            form_user.save()
+            return redirect('success_page')
+        else:
+            return render(request, 'html/user.html', {'form_user': form_user, 'error_message': 'Invalid user information.'})
+    else:
+        form_user = UserForm()
+        return render(request, 'html/user.html', {'form_user': form_user})

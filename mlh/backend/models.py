@@ -4,8 +4,8 @@ from multiselectfield import MultiSelectField
 
 # Create your models here.
 class UserInfo(models.Model):
-    Name = models.CharField(max_length=20)
-    Phone = models.CharField(max_length = 10) #validators=[RegexValidator(regrex = r'^[0-9]+$')])
+    Name = models.CharField(max_length=20,)
+    Phone = models.CharField(max_length = 10,) #validators=[RegexValidator(regrex = r'^[0-9]+$')])
     Country = models.CharField(max_length=2, choices=[('IN', 'India'), ('US', 'United States'), ('UK', 'United Kingdom')])
     
 class UserBio(models.Model):
@@ -13,8 +13,8 @@ class UserBio(models.Model):
     Area = models.CharField(max_length=15)
     City = models.CharField(max_length=15)
     State = models.CharField(max_length=15)
-    user_lon= models.DecimalField(max_digits=4, decimal_places=4, default=0.0000)
-    user_lat = models.DecimalField(max_digits=4,  decimal_places=4, default=0.0000)
+    user_lon= models.DecimalField(max_digits=4, decimal_places=4, default=0.0000,)
+    user_lat = models.DecimalField(max_digits=4,  decimal_places=4, default=0.0000,)
  
     
 # creating database for partners   

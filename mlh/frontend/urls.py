@@ -9,4 +9,6 @@ urlpatterns = [
     path('partner/', views.partner_form, name="partner_page"),
     path('redirectuser/', views.redirect_user, name="user_bio"),
     path('redirectpartner/', views.redirect_partner, name="partner_bio"),
+    path('success/', views.success, name="success_page"),
+    path('login/', views.login, name="login_page"),
 ]

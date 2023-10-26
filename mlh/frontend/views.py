@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from backend.form import *
 from .models import *
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from twilio.rest import Client
 import random
 
@@ -72,11 +72,23 @@ def register_view(request):
     return render(request, 'register.html.')
 
 # the verification with another system.
-def sendOTP(phone_number, request):
-    otp = str(random.randrange(1000, 9999))
-    client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
-    client.messages.create(to=["+91" + phone_number], from_="+15178360990", body=f'Your OTP is : {otp}')
-    request.session['verification_code'] = otp
+def sendOTP(request):
+    if request.method == 'POST':
+        try:
+             phone_number = request.POST.get('phone_number') 
+             phone_number = str(phone_number)
+             otp = str(random.randrange(1000, 9999))
+             client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
+             client.messages.create(to="+91" + phone_number, from_="+15178360990", body=f'Your OTP is : {otp}')
+             request.session['verification_code'] = otp
+             return JsonResponse({'success': True})
+        except Exception as e:
+            import logging
+            logging.error(str(e))
+            return JsonResponse({'success': False, 'error_message': str(e)})
+    return JsonResponse({'success': False, 'error_message': 'Invalid request'})
+    
+   
 
 def resendOTP(phone_number, request):
     newotp = random.randrange(1000, 9999)
@@ -84,7 +96,7 @@ def resendOTP(phone_number, request):
     client.messages.create(to=["+91" + phone_number], from_="+15178360990", body=f'Your new OTP is : {newotp}')
     request.session['verification_code'] = newotp
 
-def verify_phone_number(request):
+def verify_user(request):
     if request.method == 'POST':
         entered_otp = request.POST.get('code')
         saved_otp = request.session.get('verification_code')

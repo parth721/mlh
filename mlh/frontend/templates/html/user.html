@@ -4,13 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function sendOTP() {
+            var phone_number = getPhoneNumberFromModelForm();
+            //var phone_number = $('#Phone').val(); 
+            $.post("{% url 'send_otp' %}", { phone_number: phone_number, csrfmiddlewaretoken: '{{ csrf_token }}' }, function (data) {
+                alert(`OTP sent ${phone_number}`);
+            });
+        }
+    
+        function resendOTP() {
+            var phone_number = $('#Phone').val();  // Change 'id_phone' to the actual field name in your form
+            $.post("{% url 'resend_otp' %}", { phone_number: phone_number, csrfmiddlewaretoken: '{{ csrf_token }}' }, function (data) {
+                // Handle the response or show a success message
+                alert('New OTP sent!');
+            });
+        }
+
+        function getPhoneNumberFromModelForm() {
+            var modelForm = $('.UserForm:eq(1)');
+            print(modelForm);
+            //var phoneNumberField = modelForm.find('input[name="Phone"]');
+            var phoneNumber = modelForm.val();
+            return phoneNumber;
+        }
+    
+        $(document).ready(function () {
+            $('#user-form').submit(function (e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.post("{% url 'verify_user' %}", formData, function (data) {
+                    // Handle the response or redirect to the success page
+                    if (data.success) {
+                        window.location.href = "{% url 'success_page' %}";
+                    } else {
+                        alert('Invalid OTP or user information.');
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <form method="post">
         {% csrf_token %}
         {{ form_user.as_p }}
-        <button onclick="">Send OTP</button>
-        <button onclick="">Resend OTP</button>
+        <button type="button" onclick="sendOTP()">Send OTP</button>
+        <button type="button" onclick="resendOTP()">Resend OTP</button>
         <label for="code">Enter OTP :</label>
         <input type="text" id="code" name="code" placeholder="OTP" value="{{ otp }}">
         <button type="submit">Submit</button>   

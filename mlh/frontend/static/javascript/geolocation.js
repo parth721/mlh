@@ -13,7 +13,7 @@ function getLocation(){
 function showCoordinates(position){
     var lattitude = position.coords.lattitude;
     var longitude = position.coords.longitude;
-//I don't need to show the output coordinates. Instead I send them to ML model
+
 }
 
 //function to handle the error callback

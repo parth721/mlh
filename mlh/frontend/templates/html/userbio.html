@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner</title>
+    <script src="../../static/javascript/geolocation.js"></script>
 </head>
 <body>
     <form method="post" >
         {% csrf_token %}
         {{ bio_user.as_p }}
-
+        <a href="https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder">
+        
+        </a>
         <button type="submit"> submit </button>
     </form>
 </body>

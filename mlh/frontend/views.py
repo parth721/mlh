@@ -17,7 +17,7 @@ def user_form(request):
         form_user = UserForm(request.POST)
         if form_user.is_valid():
             form_user.save()
-            return redirect("login_page")
+            return redirect("user_bio")
     else:
         form_user = UserForm()
     return render(request, 'html/user.html', {'form_user':form_user})
@@ -37,7 +37,7 @@ def redirect_user(request):
         bio_user = UserRef(request.POST)
         if bio_user.is_valid():
             bio_user.save()
-            return redirect('html/user.html')
+            return redirect('user_bio')
     else:
         bio_user = UserRef()
         
@@ -47,6 +47,7 @@ def redirect_partner(request):
     if request.method == 'POST':
         bio_partner = PartnerRef(request.POST)
         if bio_partner.is_valid():
+            
             bio_partner.save()
             return redirect('html/partner.html')
     else:
@@ -70,31 +71,29 @@ def register_view(request):
         
         return redirect('/')
     return render(request, 'register.html.')
-
+'''
 # the verification with another system.
 def sendOTP(request):
-    if request.method == 'POST':
-        try:
-             phone_number = request.POST.get('phone_number') 
-             phone_number = str(phone_number)
-             otp = str(random.randrange(1000, 9999))
-             client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
-             client.messages.create(to="+91" + phone_number, from_="+15178360990", body=f'Your OTP is : {otp}')
-             request.session['verification_code'] = otp
-             return JsonResponse({'success': True})
-        except Exception as e:
+    #if request.method == 'POST':
+       # try:  
+            phone_number = request.POST.get('phone_number')
+            phone_number = str(phone_number)
+            otp = str(random.randrange(1000, 9999))
+
+            client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
+            response = client.messages.create(to="+91" + phone_number, from_="+15178360990", body=f'Your OTP is : {otp}')
+
+            # Handle the error if the OTP could not be sent
+            if response.status_code != 200:
+                raise Exception(f'Failed to send OTP: {response.status_code}')
+
+            request.session['verification_code'] = otp
+            return JsonResponse({'success': True})
+       # except Exception as e:
             import logging
             logging.error(str(e))
             return JsonResponse({'success': False, 'error_message': str(e)})
-    return JsonResponse({'success': False, 'error_message': 'Invalid request'})
-    
-   
-
-def resendOTP(phone_number, request):
-    newotp = random.randrange(1000, 9999)
-    client = Client("AC157a3deced6810930de61fcd331c090d", "22a173d4fad92dedf5ba699ca09fea7e")
-    client.messages.create(to=["+91" + phone_number], from_="+15178360990", body=f'Your new OTP is : {newotp}')
-    request.session['verification_code'] = newotp
+   # return JsonResponse({'success': False, 'error_message': 'Invalid request'})
 
 def verify_user(request):
     if request.method == 'POST':
@@ -116,3 +115,4 @@ def verify_user(request):
     else:
         form_user = UserForm()
         return render(request, 'html/user.html', {'form_user': form_user})
+    '''

@@ -37,7 +37,7 @@ def redirect_user(request):
         bio_user = UserRef(request.POST)
         if bio_user.is_valid():
             bio_user.save()
-            return redirect('user_bio')
+            return redirect('success_page')
     else:
         bio_user = UserRef()
         

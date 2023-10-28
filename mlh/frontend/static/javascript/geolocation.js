@@ -13,6 +13,7 @@ function getLocation(){
 function showCoordinates(position){
     var lattitude = position.coords.lattitude;
     var longitude = position.coords.longitude;
+    alert( ` coordinates lat : ${lattitude} lon : ${longitude}`)
 
 }
 

@@ -9,6 +9,7 @@ class UserInfo(models.Model):
     Country = models.CharField(max_length=2, choices=[('IN', 'India'), ('US', 'United States'), ('UK', 'United Kingdom')])
     
 class UserBio(models.Model):
+    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
     Purpose = models.IntegerField(max_length=1, choices=[(1, 'Babycare'), (2, 'Cooking'),(3, 'Elderlycare'), (4, 'Others')])
     Area = models.CharField(max_length=15)
     City = models.CharField(max_length=15)
@@ -32,6 +33,7 @@ class PartnerBio(models.Model):
         (3, 'Elderlycare'),
         (4, 'Others')
     )
+    partner = models.ForeignKey(PartnerInfo, on_delete=models.CASCADE)
     partner_purpose = MultiSelectField(choices=PURPOSE_CHOICES, max_choices=4, max_length=9) 
     partner_area = models.CharField(max_length=15)
     partner_city = models.CharField(max_length=15)

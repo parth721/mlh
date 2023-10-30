@@ -1,4 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Name = models.CharField(max_length=20)
+    Phone = models.CharField(max_length=10)
+    Country = models.CharField(max_length=2, choices=[('IN', 'India'), ('US', 'United States'), ('UK', 'United Kingdom')])
+
+class UserBio(models.Model):
+    user = models.OneToOneField(UserInfo, on_delete=models.CASCADE)
+    Purpose = models.IntegerField(choices=[(1, 'Babycare'), (2, 'Cooking'), (3, 'Elderlycare'), (4, 'Others')])
+    Area = models.CharField(max_length=10)
+    City = models.CharField(max_length=10)
+    State = models.CharField(max_length=10)
+    user_lon = models.FloatField()
+    user_lat = models.FloatField()
+
+'''
+from django.db import models
 from multiselectfield import MultiSelectField
 #from django.core.validators import RegexValidator
 
@@ -9,13 +28,13 @@ class UserInfo(models.Model):
     Country = models.CharField(max_length=2, choices=[('IN', 'India'), ('US', 'United States'), ('UK', 'United Kingdom')])
     
 class UserBio(models.Model):
-    user = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
-    Purpose = models.IntegerField(max_length=1, choices=[(1, 'Babycare'), (2, 'Cooking'),(3, 'Elderlycare'), (4, 'Others')])
-    Area = models.CharField(max_length=15)
-    City = models.CharField(max_length=15)
-    State = models.CharField(max_length=15)
-    user_lon= models.FloatField(max_length=10)
-    user_lat = models.FloatField(max_length=10)
+    user = models.OneToOneField(UserInfo, on_delete=models.CASCADE)
+    Purpose = models.IntegerField( choices=[(1, 'Babycare'), (2, 'Cooking'),(3, 'Elderlycare'), (4, 'Others')])
+    Area = models.CharField(max_length=10)
+    City = models.CharField(max_length=10)
+    State = models.CharField(max_length=10)
+    user_lon= models.FloatField()
+    user_lat = models.FloatField()
  
     
 # creating database for partners   
@@ -33,10 +52,11 @@ class PartnerBio(models.Model):
         (3, 'Elderlycare'),
         (4, 'Others')
     )
-    partner = models.ForeignKey(PartnerInfo, on_delete=models.CASCADE)
+    partner = models.OneToOneField(PartnerInfo, on_delete=models.CASCADE,)
     partner_purpose = MultiSelectField(choices=PURPOSE_CHOICES, max_choices=4, max_length=9) 
-    partner_area = models.CharField(max_length=15)
-    partner_city = models.CharField(max_length=15)
-    partner_state = models.CharField(max_length=15)
-    partner_lon = models.DecimalField(max_digits=4, decimal_places=4, default=0.0000)
-    partner_lat = models.DecimalField(max_digits=4, decimal_places=4, default=0.0000)
+    partner_area = models.CharField(max_length=10)
+    partner_city = models.CharField(max_length=10)
+    partner_state = models.CharField(max_length=10)
+    partner_lon = models.FloatField()
+    partner_lat = models.FloatField()
+    '''

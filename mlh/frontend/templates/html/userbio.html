@@ -10,7 +10,6 @@
     <form method="post" >
         {% csrf_token %}
         {{ bio_user.as_p }}
-        <!--<button onclick="getLocation()">Live-location</button>-->
         <button type="submit">Submit</button>
         <div>
             <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open in newtab</button>

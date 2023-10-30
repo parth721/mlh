@@ -10,10 +10,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form_user.as_p }}
-       <!-- <button type="button" onclick="sendOTP()">Generate OTP</button>
-        <label for="code">Enter OTP :</label>
-        <input type="text" id="code" name="code" placeholder="OTP" value="{{ otp }}">-->
-        <button type="submit">Submit</button>   
+               <button type="submit">Submit</button>   
     </form>
 </body>
 </html>

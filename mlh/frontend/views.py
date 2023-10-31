@@ -1,19 +1,17 @@
 from django.shortcuts import render, redirect
 from backend.form import *
 from .models import *
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponseBadRequest
+from django.contrib.auth import authenticate, login
 
 
-
+'''
 def create_user_info(request):
     if request.method == 'POST':
         # Create and save UserInfo instance
-        user = request.user  # Assuming you are using Django's default User model
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
-        country = request.POST.get('country')
-        user_info_instance = UserInfo(user=user, Name=name, Phone=phone, Country=country)
-        user_info_instance.save()
+        user_info = UserForm(request.POST)
+        if user_info.is_valid():
+            user_info_instance = user_info.save()
 
         # Redirect to create_user_bio with user_id as a parameter
         return redirect('create_user_bio', user_id=user_info_instance.id)
@@ -42,7 +40,7 @@ def create_user_bio(request, user_id):
 def success_page(request):
     return render(request, 'success_page')
 
-
+'''
 
 # Create your views here.
 def home(request) :
@@ -50,7 +48,7 @@ def home(request) :
 
 def success(request):
     return render(request, "html/success.html")
-'''
+
 def user_form(request):
     if request.method == 'POST':
         form_user = UserForm(request.POST)
@@ -60,7 +58,7 @@ def user_form(request):
     else:
         form_user = UserForm()
     return render(request, 'html/user.html', {'form_user':form_user})
-'''
+
 def partner_form(request):
     if request.method == 'POST':
         form_partner = PartnerForm(request.POST)
@@ -70,35 +68,21 @@ def partner_form(request):
     else:
         form_partner= PartnerForm()
     return render(request, 'html/partner.html', {'form_partner':form_partner})
-'''
-def redirect_user(request, user_id):
+
+def redirect_user(request):
     if request.method == 'POST':
         bio_user = UserRef(request.POST)
         if bio_user.is_valid():
-            bio_user.save()
+            user_info_instance = UserInfo.objects.get(user = request.user)
+            bio_user_instance = UserBio(user = user_info_instance)
+            bio_user_instance.save()
             return redirect('success_page')
     else:
         bio_user = UserRef()
         
     return  render(request, 'html/userbio.html', {'bio_user':bio_user})
 
-
-def create_user_bio(request, id):
-    if request.method == 'POST':
-        form_user_bio = UserRef(request.POST)
-        if form_user_bio.is_valid():
-            user_info_instance = UserInfo.objects.get(user_id=id)
-            user_bio_instance = form_user_bio.save(commit=False)  
-            user_bio_instance.user_id = user_info_instance 
-            user_bio_instance.save()  
-            return redirect('success_page')
-
-    else:
-        form_user_bio = UserRef()
-
-    return render(request, 'html/userbio.html', {'form_user_bio': form_user_bio, 'user_id': user_id})
-'''
-    
+'''    
 def redirect_partner(request):
     if request.method == 'POST':
         bio_partner = PartnerRef(request.POST)
@@ -110,11 +94,11 @@ def redirect_partner(request):
         bio_partner = PartnerRef()
         
     return  render(request, 'html/partnerbio.html', {'bio_partner':bio_partner})
-
+'''
 
 def login(request):
     return render(request, "html/login.html")
-
+'''
 def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('name')
@@ -127,7 +111,7 @@ def register_view(request):
         
         return redirect('/')
     return render(request, 'register.html.')
-'''
+''''''
 # the verification with another system.
 def sendOTP(request):
     #if request.method == 'POST':
@@ -172,3 +156,17 @@ def verify_user(request):
         form_user = UserForm()
         return render(request, 'html/user.html', {'form_user': form_user})
     '''
+
+def register(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.set_password(user.password)
+            user.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            login(request, user)
+            return redirect('user_page')
+    else:
+        form = UserForm()
+    return render(request, 'html/register.html', {'form': form})

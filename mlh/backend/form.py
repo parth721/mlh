@@ -2,17 +2,20 @@ from django import forms
 from .models import *
 
 
-class UserBioForm(forms.ModelForm):
-    class Meta:
-        model = UserBio
-        fields = ['Purpose', 'Area', 'City', 'State', 'user_lon', 'user_lat']
-
-
 class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    
+    class Meta :
+        model = User
+        fields = ['username', 'email', 'password']
+        
+        
+class UserInfoForm(forms.ModelForm):
     class Meta :
         model = UserInfo
-        fields = ['Name', 'Phone', 'Country']
-'''
+        fields = [ 'Phone', 'Country'] 
+
+
 class UserRef(forms.ModelForm):
     class Meta:
         model = UserBio
@@ -28,4 +31,4 @@ class PartnerRef(forms.ModelForm):
     class Meta:
         model = PartnerBio
         fields = ['partner_purpose', 'partner_area', 'partner_city', 'partner_state', 'partner_lat', 'partner_lon']  
-'''      
+     

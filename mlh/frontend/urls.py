@@ -9,6 +9,6 @@ urlpatterns = [
     path('redirectuser/', views.redirect_user, name="user_bio"),
     path('register/', views.register, name="register_page"),
     path('success/', views.success, name="success_page"),
-    path('login/', views.login, name="login_page"),
+    path('login/', views.login_request, name="login_page"),
 ]
 

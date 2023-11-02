@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User</title>
-   
+    <title>Partner</title>
+    <script src="../../static/javascript/geolocation.js"></script>
 </head>
 <body>
-    <form method="post">
+    <form method="post" >
         {% csrf_token %}
         {{ form_user.as_p }}
-         <button type="submit">Submit</button>   
+        <button type="submit">Submit</button>
+        <div>
+            <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open in newtab</button>
+        </div>
+        <div style="text-align: center;">
+            <div id="map-container">
+              <iframe src="https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder" width="96%" height="600vh"></iframe>
+            </div>
+        </div>   
     </form>
 </body>
 </html>

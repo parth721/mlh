@@ -6,6 +6,14 @@
     <title>Partner</title>
 </head>
 <body>
+    <nav>
+        
+        {% if user.is_authenticated %}
+         <p>Welcome, {{user.username}}!</p>
+        {% else %}
+            <p>Welcome Here!</p>
+        {% endif %}
+    </nav>
     <form method="post" >
         {% csrf_token %}
         {{ form_user.as_p }}

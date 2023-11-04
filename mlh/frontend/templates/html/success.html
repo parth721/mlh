@@ -7,5 +7,12 @@
 </head>
 <body>
     <h1>Success</h1>
+    <ul>
+        {% for result in results %}
+        <li>{{result.Firstname}} {{results.Lastname}} -- {{results.Phone}}</li> 
+        {% empty %}
+        <li> No result found </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

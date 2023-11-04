@@ -54,10 +54,15 @@ def partner_form(request):
             
             # query search 
             results = UserInfoForm.objects.filter(
-                latitude__gte = latitude - 0.005,
-                latitude__lte = latitude + 0.005,
-                longitude__gte = longitude - 0.005,
-                longitude__lte = longitude + 0.005,
+                latitude__gte = latitude - 0.03,
+                latitude__lte = latitude + 0.03,
+                longitude__gte = longitude - 0.03,
+                longitude__lte = longitude + 0.03,
+            ).exclude(
+                latitude__gte = latitude - 0.007,
+                latitude__lte = latitude + 0.007,
+                longitude__gte = longitude - 0.007,
+                longitude__lte = longitude + 0.007,
             )
             results = results.filter(Country = country)
             

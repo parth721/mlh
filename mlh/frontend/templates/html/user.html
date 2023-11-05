@@ -1,15 +1,17 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% tailwind_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner</title>
+
 </head>
-<body>
-    <nav>
-        
+<body class="bg-gray-100">
+    <nav class="flex flex-col justify-between mb-6">
         {% if user.is_authenticated %}
-         <p>Welcome, {{user.username}}!</p>
+         <p class="text-lg">Welcome, {{user.username}}!</p>
         {% else %}
             <p>Welcome Here!</p>
         {% endif %}

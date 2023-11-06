@@ -6,25 +6,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner</title>
-
+    <link rel="stylesheet" href="../../static/css/registration.css">
 </head>
 <body class="bg-gray-100">
-    <nav class="flex flex-col justify-between mb-6">
+    <nav class="flex flex-col justify-between items-center mb-6">
         {% if user.is_authenticated %}
          <p class="text-lg">Welcome, {{user.username}}!</p>
         {% else %}
             <p>Welcome Here!</p>
         {% endif %}
     </nav>
-    <form method="post" >
+    <form method="post" class="space-y-4" >
         {% csrf_token %}
-        {{ form_user.as_p }}
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 ">
+            {{ form_user.as_p }}
+        </div>
         <button type="submit">Submit</button>
         <div>
-            <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open in newtab</button>
+            <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open Map in newtab </button>
         </div>
         <div style="text-align: center;">
-            <div id="map-container">
+            <div id="map-container" class="flex justify-center items-center rounded">
               <iframe src="https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder" width="96%" height="600vh"></iframe>
             </div>
         </div>   

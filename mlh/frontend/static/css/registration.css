@@ -1,0 +1,25 @@
+.container {
+    width: 300px;
+    padding: 16px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.outer {
+    margin-bottom: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}

@@ -11,5 +11,6 @@ urlpatterns = [
     path('success/', views.success, name="success_page"),
     path('loginu/', views.login_user, name="login_user"),
     path('loginp/', views.login_partner, name="login_partner"),
+    path('socool/', views.socool, name="socool_page"),
 ]
 

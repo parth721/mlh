@@ -6,14 +6,28 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 # Create your views here.
 def home(request) :
     return render(request, "html/home.html")
 
+def socool(request):
+    return render(request, "html/socool.html")
+
 def success(request):
-    return render(request, "html/success.html")
+    partner_ids = request.GET.get('partners')
+    if partner_ids:
+        partner_ids = map(int, partner_ids.split(','))
+        partners = PartnerInfo.objects.filter(id__in=partner_ids)
+    else:
+        partners = PartnerInfo.objects.none()
+
+    return render(request, 'html/success_page.html', {'partners': partners})
+
+
+
 
 @login_required(login_url='login_user')
 def user_form(request):
@@ -31,7 +45,27 @@ def user_form(request):
             user_info = form_user.save(commit=False)
             user_info.user = request.user
             user_info.save()
-            return redirect("success_page")
+            
+            # Retrieve partner data
+            country = user_info.Country
+            latitude = user_info.Latitude
+            longitude = user_info.Longitude
+
+            # Query search
+            partners = PartnerInfo.objects.filter(
+                Latitude__gte = latitude - 0.03,
+                Latitude__lte = latitude + 0.03,
+                Longitude__gte = longitude - 0.03,
+                Longitude__lte = longitude + 0.03,
+            ).exclude(
+                Latitude__gte = latitude - 0.007,
+                Latitude__lte = latitude + 0.007,
+                Longitude__gte = longitude - 0.007,
+                Longitude__lte = longitude + 0.007,
+            )
+            partners = partners.filter(Country = country)
+            return redirect(reverse("success_page") + f'?partners={partners.query_string}')
+          #  return redirect( "success_page" , {'partners' : partners})
     else:
         if user_info is not None:
             form_user = UserInfoForm(instance=user_info)
@@ -45,28 +79,10 @@ def partner_form(request):
     if request.method == 'POST':
         form_partner = PartnerInfoForm(request.POST)
         if form_partner.is_valid():
+            partner_info = form_partner.save(commit=False)
+            partner_info.user = request.user
             form_partner.save()
-            
-            # Retrieve userdata  
-            country = form_partner.cleaned_data['Country']
-            latitude = form_partner.cleaned_data['Latitude']
-            longitude = form_partner.cleaned_data['Longitude']
-            
-            # query search 
-            results = UserInfoForm.objects.filter(
-                latitude__gte = latitude - 0.03,
-                latitude__lte = latitude + 0.03,
-                longitude__gte = longitude - 0.03,
-                longitude__lte = longitude + 0.03,
-            ).exclude(
-                latitude__gte = latitude - 0.007,
-                latitude__lte = latitude + 0.007,
-                longitude__gte = longitude - 0.007,
-                longitude__lte = longitude + 0.007,
-            )
-            results = results.filter(Country = country)
-            
-            return redirect('html/success.html', {'results' : results })
+            return redirect('socool_page')
     else:
         form_partner= PartnerInfoForm()
     return render(request, 'html/partner.html', {'form_partner':form_partner})

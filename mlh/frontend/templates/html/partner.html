@@ -4,15 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partner</title>
-    <script src="../../static/javascript/geolocation.js"></script>
+    <link rel="stylesheet" href="../../static/css/partner.css">
 </head>
-<body>
+<body class="bg-gray-100">
+    <nav class="name">
+        {% if user.is_authenticated %}
+         <p class="text-lg">Welcome, {{user.username}}!</p>
+        {% else %}
+            <p>Welcome Here!</p>
+        {% endif %}
+    </nav>
     <form method="post" >
         {% csrf_token %}
+        <div class="pcss">
         {{ form_partner.as_p }}
+        </div>
         <button type="submit">Submit</button>
         <div>
-            <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open in newtab</button>
+            <button type="button" onclick="window.open('https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/utils/geocoder', '_blank')">Open Map in newtab </button>
         </div>
         <div style="text-align: center;">
             <div id="map-container">

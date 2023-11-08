@@ -8,8 +8,8 @@
 <body>
     <h1>Success</h1>
     <ul>
-        {% for result in results %}
-        <li>{{result.Firstname}} {{results.Lastname}} -- {{results.Phone}}</li> 
+        {% for partner in partners %}
+        <li>{{partner.Firstname}} {{partner.Lastname}} -- {{partner.Phone}}</li> 
         {% empty %}
         <li> No result found </li>
         {% endfor %}

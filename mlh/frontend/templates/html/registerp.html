@@ -9,12 +9,14 @@
 <body>
     <h2>Register</h2>
     <div class="container">
-      <form method="post" class="outer">
+      <form method="post" class="outer" >
         {% csrf_token %}
         <div class="rform">
         {{ register_form.as_p }}
         </div>
+      <button type="submit">Register</button>
       </form>
-  <button type="submit">Register</button>
-  <p> have account :  <a href={% url 'login_partner' %}> <button> login </button></a></p>
+      <p> have account :  <a href={% url 'login_user' %}> <button> login </button></a></p>
+    </div>
 </body>
+</html>

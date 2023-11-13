@@ -26,14 +26,11 @@ def success(request):
 
     return render(request, 'html/success_page.html', {'partners': partners})
 
-
-
-
 @login_required(login_url='login_user')
 def user_form(request):
     user = request.user
     try:
-        user_info = UserInfo.objects.get(user=user)
+        user_info = UserInfo.objects.get(user=user.pk) # how pk will prevent from SQL injection?
     except UserInfo.DoesNotExist:
         user_info = None
     if request.method == 'POST':
@@ -79,7 +76,7 @@ def partner_form(request):
     if request.method == 'POST':
         form_partner = PartnerInfoForm(request.POST)
         if form_partner.is_valid():
-            partner_info = form_partner.save(commit=False)
+            partner_info = form_partner.save(commit=False) 
             partner_info.user = request.user
             form_partner.save()
             return redirect('socool_page')

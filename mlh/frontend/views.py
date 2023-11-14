@@ -24,7 +24,7 @@ def success(request):
     else:
         partners = PartnerInfo.objects.none()
 
-    return render(request, 'html/success_page.html', {'partners': partners})
+    return render(request, 'html/success.html', {'partners': partners})
 
 @login_required(login_url='login_user')
 def user_form(request):
@@ -61,7 +61,13 @@ def user_form(request):
                 Longitude__lte = longitude + 0.007,
             )
             partners = partners.filter(Country = country)
-            return redirect(reverse("success_page") + f'?partners={partners.query_string}')
+            if partners.exists:
+            #pass a list of partner IDs to the redirect() function
+               partner_ids = [partner.id for partner in partners]
+               return redirect(reverse("success_page") + f'?partner_ids={partner_ids}')
+            else:
+                return redirect(reverse("success_page"))
+        
           #  return redirect( "success_page" , {'partners' : partners})
     else:
         if user_info is not None:

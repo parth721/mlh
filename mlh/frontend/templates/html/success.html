@@ -7,12 +7,14 @@
 </head>
 <body>
     <h1>Success</h1>
-    <ul>
-        {% for partner in partners %}
-        <li>{{partner.Firstname}} {{partner.Lastname}} -- {{partner.Phone}}</li> 
-        {% empty %}
-        <li> No result found </li>
+    {% if partner_ids %}
+      <ul>
+        {% for partner_id in partner_ids %}
+        <li>{{ partner_id }}</li>
         {% endfor %}
-    </ul>
+      </ul>
+        {% else %}
+      <p>No partners found.</p>
+    {% endif %}
 </body>
 </html>

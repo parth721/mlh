@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlh-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mlh
+  template:
+    metadata:
+      labels:
+        app: mlh
+    spec:
+      containers:
+        - name: djangopod-container
+          image: parth721/django-mlh:1.2
+          ports:
+            - containerPort: 8000

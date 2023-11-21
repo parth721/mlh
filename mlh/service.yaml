@@ -6,7 +6,8 @@ spec:
   selector:
     app: mlh
   ports:
-    - protocol: "TCP"
-      port: 8000
-      targetPort: 8000
+    - protocol: TCP
+      port: 80
+      targetPort: 8000   
   type: NodePort 
+  

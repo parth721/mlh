@@ -22,3 +22,14 @@ f. display the output.
 * Audio asistance.
 * light & dark theme.
 * add partner concerns session before showing match.
+
+RUN apt-get update && \
+    apt-get upgrade -y libssl1.1 && \
+    apt-get upgrade -y perl-base && \
+    apt-get upgrade -y zlib1g && \
+    apt-get upgrade -y gcc-12-base && \
+    apt-get upgrade -y libgcc-s1 && \
+    apt-get upgrade -y libgnutls30 && \
+    apt-get upgrade -y libstdc++6 && \
+    apt-get upgrade -y login && \
+    apt-get upgrade -y passwd 

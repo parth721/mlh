@@ -14,6 +14,14 @@ spec:
     spec:
       containers:
         - name: djangopod-container
-          image: parth721/django-mlh:1.2
+          image: parth721/django-mlh:3.1
           ports:
             - containerPort: 8000
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /usr/src/app/db.sqlite3
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: sqlite-pvc
+      

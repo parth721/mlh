@@ -19,5 +19,6 @@ from django.urls import include,path
 #all project urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("__reload__/", include("django_browser_reload.urls")),
     path('', include("frontend.urls") ),
 ]

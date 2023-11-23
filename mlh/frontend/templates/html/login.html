@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends "_base.html" %}
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,4 +14,22 @@
         <button type="submit">Submit</button>
     </form>     
 </body>
-</html>
+</html>-->
+{% load static %}
+{% load compress %}
+
+{% block external_css %}
+    {% compress css %} 
+	  <link rel="stylesheet"
+		href="{% static 'css/login.css' %}"> 
+    {% endcompress %}
+{% endblock  %}
+
+{% block content %}
+<h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ login_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>   
+{% endblock content %}

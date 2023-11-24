@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: djangopod-container
-          image: parth721/django-mlh:3.1
+          image: parth721/django-mlh:4
           ports:
             - containerPort: 8000
           volumeMounts:

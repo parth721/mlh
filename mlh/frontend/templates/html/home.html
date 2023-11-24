@@ -2,58 +2,32 @@
 {% load static %}
 {% load compress %}
 
+{% block external_css %}
+{% compress css %} 
+      <link rel="stylesheet"
+        href="{% static 'css/home.css' %}"> 
+{% endcompress %}
+{% endblock  %}
 
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../../static/javascript/curloc.js"></script>
-
-    <title>Home</title>
-</head>
-<body class="bg-gray-250">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="flex flex-col items-center justify-center min-h-screen">
-            <img src="../../static/images/user.jpg" alt="user image" class="w-64 h-64">
-            <p class="mt-4 text-xl text-gray-700">
-
-            </p>
-            <a href= {% url 'register_user' %} class="mt-6">
-                <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">User</button>
-            </a>
-    </div>
-    <div class="flex flex-col items-center justify-center min-h-screen">
-            <img src="../../static/images/helper.png" alt="partner image" class="w-64 h-64">
-            <p class="mt-4 text-xl text-gray-700">
-
-            </p>
-            <a href= {% url 'register_partner' %} class="mt-6">
-                <button class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700">Partner</button>
-            </a>    
-    </div>   
- </div>
-</body>
-</html>-->
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="flex flex-col items-center justify-center min-h-screen">
-        <img src="../../static/images/user.jpg" alt="user image" class="w-64 h-64">
-        <p class="mt-4 text-xl text-gray-700">
+<div class="gridblock">
+    <div class="subblock">
+        <img src="../../static/images/user.jpg" alt="user image">
+        <p>
 
         </p>
-        <a href= {% url 'register_user' %} class="mt-6">
-            <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">User</button>
+        <a href={% url 'register_user' %} class="mt-6">
+            <button>User</button>
         </a>
 </div>
-<div class="flex flex-col items-center justify-center min-h-screen">
-        <img src="../../static/images/helper.png" alt="partner image" class="w-64 h-64">
-        <p class="mt-4 text-xl text-gray-700">
+<div class="subblock">
+        <img src="../../static/images/helper.png" alt="partner image" >
+        <p>
 
         </p>
         <a href= {% url 'register_partner' %} class="mt-6">
-            <button class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700">Partner</button>
+            <button>Partner</button>
         </a>    
 </div>   
 </div>

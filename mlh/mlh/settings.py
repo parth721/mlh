@@ -62,7 +62,6 @@ ROOT_URLCONF = 'mlh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-       # 'DIRS': [os.path.join( BASE_DIR, 'frontend/templates' )],
         'DIRS': [os.path.join(BASE_DIR, 'frontend/templates/html')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -93,6 +92,17 @@ DATABASES = {
 COMPRESS_ROOT = os.path.join(BASE_DIR, 'frontend/static')
 COMPRESS_ENABLED = True
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+"""s
+COMPRESS_ENABLED = True
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+COMPRESS_PRECOMPILERS = [
+    ('text/x-scss', 'compressor.precompilers.SCSSCompiler'),
+]
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

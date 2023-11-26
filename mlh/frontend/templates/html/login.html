@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
+{% extends "_base.html" %}
+
+{% load static %}
+{% load compress %}
+
+{% block external_css %}
+    {% compress css %} 
+	  <link rel="stylesheet"
+		href="{% static 'css/login.css' %}"> 
+    {% endcompress %}
+{% endblock  %}
+
+{% block content %}
+<h2>Login</h2>
     <form method="post">
         {% csrf_token %}
         {{ login_form.as_p }}
         <button type="submit">Submit</button>
-    </form>     
-</body>
-</html>
+    </form>   
+{% endblock content %}

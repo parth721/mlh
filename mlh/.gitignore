@@ -6,4 +6,5 @@ bin/
 include/
 pip-selfcheck.json
 
-#lets see if it works
+#ignore node modules
+node_modules/

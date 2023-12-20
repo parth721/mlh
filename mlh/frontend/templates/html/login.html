@@ -2,19 +2,24 @@
 
 {% load static %}
 {% load compress %}
-
+{% load crispy_forms_tags %}
 {% block external_css %}
     {% compress css %} 
-	  <link rel="stylesheet"
-		href="{% static 'css/login.css' %}"> 
+	  <!--<link rel="stylesheet"
+		href="{% static 'css/login.css' %}"> -->
     {% endcompress %}
 {% endblock  %}
 
 {% block content %}
 <h2>Login</h2>
+<div class="container mx-auto">
     <form method="post">
         {% csrf_token %}
-        {{ login_form.as_p }}
-        <button type="submit">Submit</button>
-    </form>   
+        {{ login_form|crispy }}
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+       
 {% endblock content %}

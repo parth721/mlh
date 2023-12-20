@@ -2,7 +2,7 @@
 {% load static %}
 {% load compress %}
 
-{% block external_css %}
+<!--{% block external_css %}
 {% compress css %} 
       <link rel="stylesheet"
         href="{% static 'css/home.css' %}"> 
@@ -10,7 +10,7 @@
 {% endblock  %}
 
 
-{% block content %}
+block------------------
 <div class="gridblock">
     <div class="subblock">
         <img src="../../static/images/user.jpg" alt="user image">
@@ -30,5 +30,35 @@
             <button>Partner</button>
         </a>    
 </div>   
+</div>
+endblock ---------->
+{% block content %}
+<div class="container">
+<div class="py-4">
+<div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">User</h5>
+          <p class="card-text">Welcome here, are you looking for anyone?</p>
+          <a href={% url 'register_user' %} class="mt-6">
+            <button> User </button>
+        </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Partner</h5>
+          <p class="card-text">Welcome here, how can we help you ?</p>
+          <a href={% url 'register_partner' %} class="mt-6">
+            <button>Partner</button>
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 {% endblock content %}

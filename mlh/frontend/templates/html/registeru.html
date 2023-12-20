@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,17 +6,24 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../static/css/registration.css">
 </head>
-<body>
+<body>-->
+{% extends "_base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
     <h2>Register</h2>
     <div class="container">
       <form method="post" class="outer" >
         {% csrf_token %}
         <div class="rform">
-        {{ register_form.as_p }}
+        {{ register_form|crispy }}
         </div>
-        <button type="submit">Register</button>
+        <div class="d-grid gap-2 d-md-block">
+          <button class="btn btn-primary" type="submit">Register</button>
+      </div>
       </form>
-      <p> have account :  <a href={% url 'login_user' %}> <button> login </button></a></p>
+      <p> have account :  <a href={% url 'login_user' %}> <button class="btn btn-primary"> login </button></a></p>
     </div>
-</body>
-</html>
+{% endblock content %}
+<!--</body>
+</html>-->

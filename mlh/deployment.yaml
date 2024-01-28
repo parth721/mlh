@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: djangopod-container
-          image: parth721/django-mlh:4
+          image: parth721/django-mlh:5
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "500m"
+            limits:
+              memory: "400Mi"
+              cpu: "900m"
           ports:
             - containerPort: 8000
           volumeMounts:

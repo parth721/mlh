@@ -2,36 +2,7 @@
 {% load static %}
 {% load compress %}
 
-<!--{% block external_css %}
-{% compress css %} 
-      <link rel="stylesheet"
-        href="{% static 'css/home.css' %}"> 
-{% endcompress %}
-{% endblock  %}
 
-
-block------------------
-<div class="gridblock">
-    <div class="subblock">
-        <img src="../../static/images/user.jpg" alt="user image">
-        <p>
-
-        </p>
-        <a href={% url 'register_user' %} class="mt-6">
-            <button>User</button>
-        </a>
-</div>
-<div class="subblock">
-        <img src="../../static/images/helper.png" alt="partner image" >
-        <p>
-
-        </p>
-        <a href= {% url 'register_partner' %} class="mt-6">
-            <button>Partner</button>
-        </a>    
-</div>   
-</div>
-endblock ---------->
 {% block content %}
 <div class="container">
 <div class="py-4">
@@ -42,7 +13,9 @@ endblock ---------->
           <h5 class="card-title">User</h5>
           <p class="card-text">Welcome here, are you looking for anyone?</p>
           <a href={% url 'register_user' %} class="mt-6">
-            <button> User </button>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-primary" type="button">User</button>
+            </div>
         </a>
         </div>
       </div>
@@ -53,7 +26,9 @@ endblock ---------->
           <h5 class="card-title">Partner</h5>
           <p class="card-text">Welcome here, how can we help you ?</p>
           <a href={% url 'register_partner' %} class="mt-6">
-            <button>Partner</button>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-primary" type="button">Partner</button>
+            </div>
         </a>
         </div>
       </div>

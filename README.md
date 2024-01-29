@@ -1,37 +1,45 @@
 # projectmlh (mobile local helper)
 
 ## Introduction :
-Projectmlh is build for connecting people within a range. So that people work in unorganized sector of our economy, find work more easily & people who need helpers, then don't need to bother for that.
-In todays era we have lots of online connection but few offline connection. Projectmlh going to help those people who need help/support in this modern era. 
+### Problem : 
+Domestic nursing care, especially after covid-19,also increase & often face difficulties finding rewarding & convienient opportunities. Patients onthe other hand, struggle to find available  helpers for in-home care need.
 
-eg : you are travelling in a city & you need someone as a companion. you can look for helpers it that locality, and then decide whether or not both of you want to travel together.
+### Solution :
+Projectmlh is build for connecting patients & nurses within the region of interest. So that people work in unorganized sector of our economy, find work more easily & people who need helpers, then don't need to bother for that. 
 
+This user-friendly application is built on the Django framework, leverages Bootstrap for responsive design, and utilizes a SQLite database for data storage. Docker containerization ensures portability and simplifies deployment, while Minikube provides a local Kubernetes environment for development and testing.
 
-## Initialiation :
+![Screenshot from 2024-01-28 17-58-28](https://github.com/parth721/projectmlh/assets/112557191/c78378a2-1b0b-48d0-b992-67b8fff59be7)
 
+### Prerequisites: 
+1. Python 3.11
+2. minikube
+3. Docker 
+4. Git(optional)
+   
+### For updating the project :  
 1. fork the repo
 2. clone it
-3. create your branch
-4. python install
-5. pip install `sudo apt install python3-pip`
-6. install virtual environment : `sudo apt install python3.8-venv`
-7. create virtual environment :`python3 -m venv venv`
-8. Activate venv :`source venv/bin/activate` in root directory (mlh)
-9. Django install : `sudo apt install python3-django`  
-10. 9. Install the depepncies written in requirements.txt
-11. Run application : `python3 manage.py runserver`
+3. setup virtual env :`python3 -m venv venv`  
+4. Install the depepncies written in requirements.txt
+5. test the changes : `python3 manage.py runserver`
+6. start minikube
+7. create or update the yaml files.
+8. checks the status of pods, services, others
+9. run the application in cluster : `minikube sevice <service-name>`
+   
+### For trying out:
+you can pull the docker image from DockerHub & deploy it on Minikube. Follow the steps 1,2 then 6 to 9.
 
-Or you can pull the docker image from DockerHub & deploy it on Minikube.
+![Screenshot from 2024-01-29 10-10-15](https://github.com/parth721/projectmlh/assets/112557191/c1a8812e-0f51-467e-98b7-e2f71402046a)
 
-1. `docker pull parth721/django-mlh:<latest_tag_name>`
-2. start minikube
-3. `kubectl apply -f deployment.yaml`
-4. `kubectl apply -f service.yaml`
-5. `kubectl get deployments`
-6. `kubectl get pods`
-7. `kubectl get services`
-8. `kubectl expose deployment <my-deployment> --type=NodePort --port=8080`
-9. `minikube sevice <service-name> --url`
 
 ## Usage
-user can register then login.After that, they can fill the form & submit to search for helpers.
+### 1. User registration & login
+Users can register as either Patient or Helper accounts. Login credentials are required to access platform features.
+### 2. Helpers profile creation
+Helper users can create profiles outlining their skills, experience, qualifications, and availability.
+### 3. searching for helpers
+Patients can post requests specifying their care needs,availability timings. They can then search for matching Helper profiles based on various criteria.
+### 4. communication
+Patients can initiate communication with suitable Helpers to discuss requirements and arrange care bookings.

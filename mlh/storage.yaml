@@ -5,14 +5,14 @@ metadata:
   labels:
     app: sqlite-pv
 spec:
-  storageClassName: manual
+  storageClassName: standard
   capacity:
-    storage: 500Mi
+    storage: 1Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /tmp/data
+    path: /var/lib/mlh-data
 ---
 
 apiVersion: v1
@@ -20,8 +20,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: sqlite-pvc
 spec:
+  storageClassName: standard
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 500Mi
+      storage: 1Gi

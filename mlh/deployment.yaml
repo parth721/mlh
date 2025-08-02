@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: djangopod-container
-          image: parth721/django-mlh:5
+          image: parth721/django-mlh:8
           resources:
             requests:
               memory: "200Mi"
@@ -26,7 +26,7 @@ spec:
             - containerPort: 8000
           volumeMounts:
             - name: sqlite-storage
-              mountPath: /usr/src/app/db.sqlite3
+              mountPath: /usr/src/app/data
       volumes:
         - name: sqlite-storage
           persistentVolumeClaim:

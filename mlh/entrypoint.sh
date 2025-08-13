@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Database initialization script for MLH Django app
-# This script ensures the database is properly initialized on first run
 
 set -e
 
@@ -18,18 +17,27 @@ chmod 755 "$DATA_DIR"
 if [ ! -f "$DB_PATH" ]; then
     echo "Database not found. Initializing new database..."
     
-    # Run migrations to create database
-    python manage.py migrate
-    
+    if ! python manage.py migrate; then
+        echo "ERROR: Database migration failed during initialization." >&2
+        exit 1
+    fi
+
     echo "Database initialized successfully."
 else
     echo "Database found. Running migrations to ensure schema is up to date..."
-    python manage.py migrate
+
+    if ! python manage.py migrate; then
+        echo "ERROR: Database migration failed while updating schema." >&2
+        exit 1
+    fi
 fi
 
-# Collect static files
 echo "Collecting static files..."
-python manage.py collectstatic --noinput --clear
+if ! python manage.py collectstatic --noinput --clear; then
+    echo "ERROR: Failed to collect static files." >&2
+    exit 1
+fi
 
 echo "Starting Django server..."
-exec python manage.py runserver 0.0.0.0:8000
+exec "$@"
+

@@ -40,4 +40,9 @@ fi
 
 echo "Starting Django server..."
 exec "$@"
-
+if [ $# -eq 0 ]; then
+    echo "No command provided. Starting default Django development server..."
+    exec python manage.py runserver 0.0.0.0:8000
+else
+    exec "$@"
+fi

@@ -9,14 +9,10 @@ RUN mkdir -p /usr/src/app/data && \
     chmod 755 /usr/src/app/data
 
 COPY requirements.txt /usr/src/app/
-
-
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
-
-RUN python manage.py collectstatic --noinput
 
 # Copy and make entrypoint script executable
 COPY entrypoint.sh /usr/src/app/
@@ -26,5 +22,8 @@ RUN chmod +x /usr/src/app/entrypoint.sh && \
 
 EXPOSE 8000
 
-# Or use the fixed entrypoint script
-CMD ["/usr/src/app/entrypoint.sh"]
+# Use ENTRYPOINT to run the script
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+
+# Default command can now be overridden during `docker run`
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
